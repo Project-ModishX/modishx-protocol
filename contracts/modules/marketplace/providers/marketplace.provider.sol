@@ -29,4 +29,50 @@ library MarketplaceProvider {
         Dto.MarketplaceSchema storage ms = marketplaceStorage();
         listing_fee = ms.listing_fee;
     }
+
+    function return_market_item(uint256 _listing_id) 
+        internal
+        view 
+        returns(
+            Dto.MartketplaceItem memory market_item
+        ) 
+    {
+        Dto.MarketplaceSchema storage ms = marketplaceStorage();
+        market_item = ms.market_items_mapping[_listing_id];
+    }
+
+    function return_market_items(
+        uint8 _amount, 
+        uint256 _skip, 
+        bool _skip_sold
+    ) 
+        internal 
+        view 
+        returns(
+            Dto.MartketplaceItem[] memory market_items
+        )
+    {
+        Dto.MarketplaceSchema storage ms = marketplaceStorage();
+        uint8 current_index;
+        market_items = new Dto.MartketplaceItem[](_amount);
+
+        for(uint256 i = _skip; i < _amount + _skip; i++) {
+            Dto.MartketplaceItem memory mt = ms.market_items_mapping[i];
+            
+            // remove sold items 
+            if(_skip_sold && mt.is_sold) {
+                continue;
+            }
+
+            // remove cancelled items
+            if(mt.is_cancelled) {
+                continue;
+            }
+
+            // setting the return array
+            market_items[current_index] = mt;
+
+            current_index++;
+        }
+    }
 }
