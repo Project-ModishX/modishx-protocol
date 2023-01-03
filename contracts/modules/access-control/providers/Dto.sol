@@ -5,9 +5,9 @@ pragma solidity ^0.8.0;
 library Dto {
   enum Roles {
     DEFAULT, // This is the role that all addresses has by default 
-    MARKETPLACE_MANAGER;
-    AUCTION_ADMIN;
-    FUNDS_MANAGER;
+    MARKETPLACE_MANAGER,
+    AUCTION_ADMIN,
+    FUNDS_MANAGER
   }
 
   struct AccessControlSchema {
