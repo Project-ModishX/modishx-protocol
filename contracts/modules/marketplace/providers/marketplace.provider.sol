@@ -82,7 +82,7 @@ library MarketplaceProvider {
     )
         internal
     {
-        AcessControl.hasRoleWithRevert(Dto.Role.MARKETPLACE_MANAGER, msg.sender);
+        AcessControl.hasRoleWithRevert(AccessControlDto.Roles.MARKETPLACE_MANAGER, msg.sender);
         Dto.MarketplaceSchema storage ms = marketplaceStorage();
         ms.listing_fee = _listing_fee;
     }
