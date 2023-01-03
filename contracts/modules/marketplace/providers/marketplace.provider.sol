@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {Dto} from "./dto.sol";
 import {Positions} from "./postions.sol";
 import {Errors} from "./errors.sol";
+import {AcessControl, Dto as AccessControlDto} from "../../access-control/providers/access-control.provider.sol";
 
 library MarketplaceProvider {
     function marketplaceStorage() 
@@ -81,7 +82,9 @@ library MarketplaceProvider {
     )
         internal
     {
+        AcessControl.hasRoleWithRevert(Dto.Role.MARKETPLACE_MANAGER, msg.sender);
         Dto.MarketplaceSchema storage ms = marketplaceStorage();
+        ms.listing_fee = _listing_fee;
     }
 
     function list_market_items(
