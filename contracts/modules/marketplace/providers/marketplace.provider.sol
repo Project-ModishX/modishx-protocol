@@ -81,8 +81,24 @@ library MarketplaceProvider {
     )
         internal
     {
-        
+
         Dto.MarketplaceSchema storage ms = marketplaceStorage();
 
+    }
+
+    function list_market_items(
+
+    )
+        internal
+    {
+
+    }
+
+    function cancel_market_listing(
+
+    ) 
+        internal 
+    {
+        
     }
 }
