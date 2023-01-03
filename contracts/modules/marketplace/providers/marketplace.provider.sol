@@ -75,4 +75,14 @@ library MarketplaceProvider {
             current_index++;
         }
     }
+
+    function set_listing_fee(
+        uint256 _listing_fee
+    )
+        internal
+    {
+        
+        Dto.MarketplaceSchema storage ms = marketplaceStorage();
+
+    }
 }
