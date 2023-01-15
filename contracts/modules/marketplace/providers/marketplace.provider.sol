@@ -95,7 +95,13 @@ library MarketplaceProvider {
 
     }
 
-    
+    function update_listing_price(
+
+    )
+        internal
+    {
+
+    }
 
     function cancel_market_listing(
 

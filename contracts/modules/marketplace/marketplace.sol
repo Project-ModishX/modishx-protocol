@@ -64,15 +64,29 @@ contract Marketplace {
     ) 
         external 
     {
-
+        provider.set_listing_fee(_listing_fee);
     }
 
     /// @notice this function is user be a wearable owner to list their weariable on the marketplace
     /// @dev function should make sure the approval for all is allowed in this address
-    function list_items() external {}
+    function list_items(
+        
+    ) 
+        external 
+    {
 
-    function update_listing_price() external {}
+    }
+
+    function update_listing_price() 
+        external 
+    {
+
+    }
 
     /// @notice this function would be used be the seller to tell the market they are no - longer selling
-    function cancel_listing() external {}
+    function cancel_listing() 
+        external 
+    {
+        
+    }
 }
