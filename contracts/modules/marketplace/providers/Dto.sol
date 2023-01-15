@@ -3,18 +3,18 @@ pragma solidity ^0.8.0;
 
 library Dto {
     struct MartketplaceItem {
-        uint256 marketplace_item_id;
+        uint256 marketplace_item_id; // this is the id the marketplace uses to track it items 
         address seller;
-        address token_address;
-        address reffer;
-        uint256 wearable_id;
-        uint256 quantity;
-        uint256 price;
-        uint256 created_at;
-        uint256 sold_at;
+        address token_address; // this is the address of the nft contract 
+        address reffer; // this is the address of whose link the token was purchased
+        uint256[] wearable_ids; // is is a list of token id of the nft to be listed 
+        uint256[] quantities; // this is the amount of the indivual items 
+        uint256 price; // this is the price the nft would be sold for
+        uint256 created_at; // this is the block.timestamp this token was placed for sale 
+        uint256 sold_at; // this is the block.timestamp this token wa sold 
         uint256 reffer_percentage; // in 10**6
-        bool is_sold;
-        bool is_cancelled;
+        bool is_sold; //this is a market to sold when a token is sold or not 
+        bool is_cancelled; //  this is a pointer to show if a wearable listed for sale has been cancalled 
     }
 
     struct MarketplaceSchema {
