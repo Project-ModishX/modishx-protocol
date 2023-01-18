@@ -7,7 +7,7 @@ import {Errors} from "./errors.sol";
 import {AcessControl, Dto as AccessControlDto} from "../../access-control/providers/access-control.provider.sol";
 
 library MarketplaceProvider {
-    constant uint256 PRECESION = 10**8;
+    uint256 constant PRECESION = 10**8;
 
 
     function marketplaceStorage() 
@@ -114,16 +114,25 @@ library MarketplaceProvider {
 
     }
 
+
     /// @dev this function would get the listing fee from storage convert it to the price of polygon and take it from the user(_from)
-    /// @param _from: this is the address that mosihx would be taking the pool toke from 
-    function pay_listing_fee(
-        address _from
-    )
+    function check_if_listing_fee_is_enough()
         internal
+        view
+        returns(
+            bool status_
+        )
     {
         // obtain the listing fee from storage and obtain price in matic 
         Dto.MarketplaceSchema storage ms = marketplaceStorage();
-        (ms.listing_fee * get_polygon_current_price_to_dollar()) / PRECESION**2;
+        uint256 listing_fee_in_matic = (ms.listing_fee * get_polygon_current_price_to_dollar()) / PRECESION**2;
+        uint256 value = msg.value;
+
+        if(value >= listing_fee_in_matic) {
+            status_ = true;
+        } else {
+            revert Errors.INSUFFICIENT_FUNDS();
+        }
     }
 
     function get_price_source()
