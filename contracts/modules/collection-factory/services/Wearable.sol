@@ -12,7 +12,7 @@ contract Wearable {
     /// @notice this function would return true or false if a wearable has been redeemed
     /// @dev wearables which has been redeemed can on longer be traded on the marketplace and is no longer redeemable able 
     function hasBeenRedeemed()
-        external 
+        external
         view 
         returns(
             bool redeemed_status

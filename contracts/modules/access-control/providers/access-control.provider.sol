@@ -39,7 +39,7 @@ library AcessControl {
     view 
     {
         Dto.AccessControlSchema storage ms = accessControlStorage();
-        if(_addr == ms.superuser) {
+        if(_addr != ms.superuser) {
             revert Errors.NOT_SUPERUSER();
         }
     }
