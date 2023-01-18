@@ -122,9 +122,9 @@ contract Wearable is ERC1155 {
             string memory uri_
         )
     {
-        uri = string(
+        uri_ = string(
             abi.encodePacked(
-                uri, 
+                super.uri(_token_id), 
                 Strings.toString(_token_id), 
                 ".json"
             )
