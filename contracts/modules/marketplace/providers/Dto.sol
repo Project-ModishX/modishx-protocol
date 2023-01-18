@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {PriceSourceController} from "../controllers/price-source.controller.sol";
+
 library Dto {
     struct MartketplaceItem {
         uint256 marketplace_item_id; // this is the id the marketplace uses to track it items 
@@ -18,9 +20,10 @@ library Dto {
     }
 
     struct MarketplaceSchema {
-        uint256 listing_fee;
+        uint256 listing_fee; // in dollar and percison is 10**6
         mapping(uint256 => MartketplaceItem) market_items_mapping;
         MartketplaceItem[] market_items_array;
+        PriceSourceController price_source;
     }
 }
 

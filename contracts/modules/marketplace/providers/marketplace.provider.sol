@@ -1,12 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {Dto} from "./dto.sol";
+import {Dto, PriceSourceController} from "./dto.sol";
 import {Positions} from "./postions.sol";
 import {Errors} from "./errors.sol";
 import {AcessControl, Dto as AccessControlDto} from "../../access-control/providers/access-control.provider.sol";
 
 library MarketplaceProvider {
+    constant uint256 PRECESION = 10**8;
+
+
     function marketplaceStorage() 
         internal 
         pure 
@@ -110,4 +113,60 @@ library MarketplaceProvider {
     {
 
     }
+
+    /// @dev this function would get the listing fee from storage convert it to the price of polygon and take it from the user(_from)
+    /// @param _from: this is the address that mosihx would be taking the pool toke from 
+    function pay_listing_fee(
+        address _from
+    )
+        internal
+    {
+        // obtain the listing fee from storage and obtain price in matic 
+        Dto.MarketplaceSchema storage ms = marketplaceStorage();
+        (ms.listing_fee * get_polygon_current_price_to_dollar()) / PRECESION**2;
+    }
+
+    function get_price_source()
+        internal
+        view
+        returns (
+            PriceSourceController price_source_
+        )
+    {
+        Dto.MarketplaceSchema storage ms = marketplaceStorage();
+        price_source_ = ms.price_source;
+    }
+
+    function set_price_source(
+        PriceSourceController _price_source
+    ) 
+        internal
+    {
+        AcessControl.hasRoleWithRevert(AccessControlDto.Roles.MARKETPLACE_MANAGER, msg.sender);
+        Dto.MarketplaceSchema storage ms = marketplaceStorage();
+        ms.price_source = _price_source;
+    }
+
+    /// @dev the price retruned by this function is already in precision 10**8
+    function get_polygon_current_price_to_dollar()
+        internal
+        view
+        returns(
+            uint256 price_
+        )
+    {
+        (
+            ,
+            int price,
+            ,
+            ,
+        ) = get_price_source().latestRoundData();
+
+        price_ = uint256(price);
+    }
 }
+
+
+
+// MATIC/USD -> 0xAB594600376Ec9fD91F8e885dADF0CE036862dE0 [MAINNET]
+// MATIC/USD -> 0xAB594600376Ec9fD91F8e885dADF0CE036862dE0 [TESTNET]
