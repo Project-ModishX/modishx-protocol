@@ -28,7 +28,6 @@ contract Wearable is ERC1155 {
         string memory _uri, 
         address _modishx
     ) 
-        public 
         ERC1155(
             _uri
         ) 
