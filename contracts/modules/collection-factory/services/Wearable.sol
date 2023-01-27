@@ -10,8 +10,9 @@ contract Wearable is ERC1155 {
     // ============================================================================================================
     // -------------------------------------------- State Variables -------------------------------------------------------
     // ============================================================================================================
-    bool isRedeemed;
     address modishx;
+    bytes32 public dna;
+    bool isRedeemed;
 
 
     // ============================================================
@@ -26,13 +27,15 @@ contract Wearable is ERC1155 {
     /// @param _uri: this is the link to the metadata [https://bafybeihul6zsmbzyrgmjth3ynkmchepyvyhcwecn2yxc57ppqgpvr35zsq.ipfs.dweb.link/]
     constructor(
         string memory _uri, 
-        address _modishx
+        address _modishx,
+        bytes32 _dna
     ) 
         ERC1155(
             _uri
         ) 
     {
         modishx = _modishx;
+        dna = _dna;
     }
 
 
