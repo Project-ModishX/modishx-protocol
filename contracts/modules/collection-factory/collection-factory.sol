@@ -24,15 +24,15 @@ contract CollectionFactory {
     {
         only_owner();
 
-        bytes32 childs_dna = bytes32(abi.encodePacked(_url, block.timestamp))
+        bytes32 childs_dna = bytes32(abi.encodePacked(_uri, block.timestamp));
 
         _new_collection = Create3.create3(
             childs_dna, 
             abi.encodePacked(
                 type(Wearable).creationCode,
                 abi.encode(
-                    _url,address(this),childs_dna
-                )), eth
+                    _uri,address(this),childs_dna
+                ))
             );
 
         emit CollectionDeployed(_new_collection);
@@ -69,7 +69,6 @@ contract CollectionFactory {
         }
     }
 
-    /// @param _child: the is the address of the child to be verified 
     /// @notice this a view function that would return true if the provided address was created by the contract
     function is_modishx_wearable_strict() 
         view 
