@@ -13,7 +13,7 @@ library Dto {
         address token_address; // this is the address of the nft contract 
         uint40 created_at; // this is the block.timestamp this token was placed for sale 
         uint40 sold_at; // this is the block.timestamp this token wa sold 
-        uint8 reffer_percentage; // in 1 = 1%
+        uint8 referrer_percentage; // in 1 = 1%
         bool is_sold; //this is a market to sold when a token is sold or not 
         bool is_cancelled; //  this is a pointer to show if a wearable listed for sale has been cancalled 
     }
