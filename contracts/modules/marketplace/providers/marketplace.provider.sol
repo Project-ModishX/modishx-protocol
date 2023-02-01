@@ -5,6 +5,9 @@ import {Dto, PriceSourceController} from "./dto.sol";
 import {Positions} from "./postions.sol";
 import {Errors} from "./errors.sol";
 import {AcessControl, Dto as AccessControlDto} from "../../access-control/providers/access-control.provider.sol";
+import {Wearable} from "../../collection-factory/services/Wearable.sol";
+
+
 
 library MarketplaceProvider {
     uint256 constant PRECESION = 10**8;
@@ -98,6 +101,25 @@ library MarketplaceProvider {
 
     }
 
+    function list_internal(
+        address _wearable_token_address,
+        uint256 _wearable_token_id,
+        uint256 _quantity,
+        uint40 _price,
+        uint8 _referrer_percentage,
+        address _seller
+    )
+        internal 
+    {
+        // check owner balance 
+
+        // check if modishx has been approved to spend tokens 
+
+        // compute cost 
+
+        // check if cost exceeds minimum tradeable price
+    }
+
     function update_listing_price(
 
     )
@@ -120,6 +142,12 @@ library MarketplaceProvider {
         internal 
     {
 
+    }
+
+    function increment__list_id(Dto.MarketplaceSchema storage ms)
+        internal 
+    {
+        ms.last_listing_id++;
     }
 
 

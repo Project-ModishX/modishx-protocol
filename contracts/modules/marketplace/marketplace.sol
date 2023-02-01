@@ -96,7 +96,8 @@ contract Marketplace {
         uint256 _wearable_token_id,
         uint256 _quantity,
         uint40 _price,
-        uint8 _referrer_percentage
+        uint8 _referrer_percentage,
+        address _seller
     )
         external 
     {
