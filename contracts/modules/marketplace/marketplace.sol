@@ -69,9 +69,26 @@ contract Marketplace {
 
     /// @notice this function is user be a wearable owner to list their weariable on the marketplace
     /// @dev function should make sure the approval for all is allowed in this address
+    /// @param _wearable_token_address: this is the token address of the wearable nft
+    /// @param _wearable_token_id: this is the token id of the nft to be listed 
+    /// @param _quantity: this is the amount of this token to be listed 
+    /// @param _price: this is the price in wei for the wearable 
     function list_items(
-        
+        address _wearable_token_address,
+        uint256 _wearable_token_id,
+        uint256 _quantity,
+        uint256 _price
     ) 
+        external 
+    {
+
+    }
+
+    /// @notice this function would be called by a marchant would want's his product to be affiliable 
+    /// @dev new parameters supporting this functionality must be passed and checked (SC)
+    function list_items_with_referrer(
+
+    )
         external 
     {
 
