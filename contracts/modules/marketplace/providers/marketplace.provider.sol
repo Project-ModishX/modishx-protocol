@@ -11,6 +11,7 @@ import {Wearable} from "../../collection-factory/services/Wearable.sol";
 
 library MarketplaceProvider {
     uint256 constant PRECESION = 10**8;
+    event WearableListed();
 
 
     function marketplaceStorage() 
@@ -114,6 +115,8 @@ library MarketplaceProvider {
         Dto.MarketplaceSchema storage ms = marketplaceStorage();
         Wearable wearable = Wearable(_wearable_token_address);
 
+        // child check 
+
         if(_quantities.length != _wearable_token_ids.length) {
             revert Errors.IDS_AND_QUANTITY_NEEDS_TO_BE_THE_SAME_LENGTH()
         }
@@ -128,20 +131,28 @@ library MarketplaceProvider {
             revert Errors.INSUFFICIENT_AUTHORIZATION_OVER_TOKENS();
         }
 
-        
+        if(_price < ms.minimum_tradeable) {
+            revert Errors.COST_TOO_LOW();
+        }
 
         Dto.MartketplaceItem memory wb = Dto.MartketplaceItem({
             marketplace_item_id: ms.next_listing_id,
             wearable_ids: _wearable_token_ids,
-            price: cost
+            price: _price,
             quantities: _quantities,
-            seller
-            created_at
-            sold_at
-            referrer_percentage
-            is_sold
-            is_cancelled
-        })
+            seller: _seller,
+            created_at: block.timestamp,
+            sold_at: 0
+            referrer_percentage: _referrer_percentage,
+            is_sold: false,
+            is_cancelled: false 
+        });
+
+        increment__list_id(ms);
+        ms.market_items_mapping[wb.marketplace_item_id];
+        ms.market_items_array.push(wb);
+
+        
     }
 
     function update_listing_price(
