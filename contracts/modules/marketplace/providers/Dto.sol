@@ -24,7 +24,7 @@ library Dto {
         mapping(uint256 => MartketplaceItem) market_items_mapping;
         MartketplaceItem[] market_items_array;
         PriceSourceController price_source;
-        uint256 minimum_tradeable
+        uint256 minimum_tradeable;
     }
 }
 

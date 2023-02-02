@@ -104,8 +104,8 @@ library MarketplaceProvider {
 
     function list_internal(
         address _wearable_token_address,
-        uint256[] _wearable_token_ids,
-        uint256[] _quantities,
+        uint256[] memory _wearable_token_ids,
+        uint256[] memory _quantities,
         uint40 _price,
         uint8 _referrer_percentage,
         address _seller
@@ -118,16 +118,16 @@ library MarketplaceProvider {
         // child check 
 
         if(_quantities.length != _wearable_token_ids.length) {
-            revert Errors.IDS_AND_QUANTITY_NEEDS_TO_BE_THE_SAME_LENGTH()
+            revert Errors.IDS_AND_QUANTITY_NEEDS_TO_BE_THE_SAME_LENGTH();
         }
 
-        if(quantities.length > 10) {
+        if(_quantities.length > 10) {
             revert Errors.MAXIMUM_WEARABLE_LENGTH();
         }
 
         wearable.modishBalanceOfBatchWithCheck(_seller, _wearable_token_ids, _quantities);
 
-        if(!wearable.isApprovedForAll(seller, address(this))) {
+        if(!wearable.isApprovedForAll(_seller, address(this))) {
             revert Errors.INSUFFICIENT_AUTHORIZATION_OVER_TOKENS();
         }
 
@@ -141,8 +141,9 @@ library MarketplaceProvider {
             price: _price,
             quantities: _quantities,
             seller: _seller,
-            created_at: block.timestamp,
-            sold_at: 0
+            token_address: _wearable_token_address,
+            created_at: uint40(block.timestamp),
+            sold_at: 0,
             referrer_percentage: _referrer_percentage,
             is_sold: false,
             is_cancelled: false 
@@ -182,7 +183,7 @@ library MarketplaceProvider {
     function increment__list_id(Dto.MarketplaceSchema storage ms)
         internal 
     {
-        ms.last_listing_id++;
+        ms.next_listing_id++;
     }
 
 
