@@ -20,7 +20,7 @@ library Dto {
 
     struct MarketplaceSchema {
         uint256 listing_fee; // in dollar and percison is 10**6
-        uint256 last_listing_id;
+        uint256 next_listing_id;
         mapping(uint256 => MartketplaceItem) market_items_mapping;
         MartketplaceItem[] market_items_array;
         PriceSourceController price_source;

@@ -103,21 +103,53 @@ library MarketplaceProvider {
 
     function list_internal(
         address _wearable_token_address,
-        uint256 _wearable_token_id,
-        uint256 _quantity,
+        uint256[] _wearable_token_ids,
+        uint256[] _quantities,
         uint40 _price,
         uint8 _referrer_percentage,
         address _seller
     )
         internal 
     {
-        // check owner balance 
+        Dto.MarketplaceSchema storage ms = marketplaceStorage();
+        Wearable wearable = Wearable(_wearable_token_address);
 
-        // check if modishx has been approved to spend tokens 
+        if(_quantities.length != _wearable_token_ids.length) {
+            revert Errors.IDS_AND_QUANTITY_NEEDS_TO_BE_THE_SAME_LENGTH()
+        }
 
-        // compute cost 
+        if(quantities.length > 10) {
+            revert Errors.MAXIMUM_WEARABLE_LENGTH();
+        }
 
-        // check if cost exceeds minimum tradeable price
+        
+
+        if(
+            wearable.balanceOf(_seller, _wearable_token_id) < _quantity
+        ) 
+        {
+            revert Errors.INSUFFICIENT_WEARABLE();
+        }
+        if(!wearable.isApprovedForAll(seller, address(this))) {
+            revert Errors.INSUFFICIENT_AUTHORIZATION_OVER_TOKENS();
+        }
+        uint256 total_cost_or_wearables = _quantity * _price;
+        if(total_cost_or_wearables < ms.minimum_tradeable) {
+            revert Errors.COST_TOO_LOW();
+        }
+
+        Dto.MartketplaceItem memory wb = Dto.MartketplaceItem({
+            marketplace_item_id: ms.next_listing_id,
+            wearable_ids: _wearable_token_ids,
+            price: cost
+            quantities: _quantities,
+            seller
+            created_at
+            sold_at
+            referrer_percentage
+            is_sold
+            is_cancelled
+        })
     }
 
     function update_listing_price(
