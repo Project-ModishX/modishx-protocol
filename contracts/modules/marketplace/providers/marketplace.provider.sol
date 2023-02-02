@@ -128,10 +128,7 @@ library MarketplaceProvider {
             revert Errors.INSUFFICIENT_AUTHORIZATION_OVER_TOKENS();
         }
 
-        uint256 total_cost_or_wearables = _quantity * _price;
-        if(total_cost_or_wearables < ms.minimum_tradeable) {
-            revert Errors.COST_TOO_LOW();
-        }
+        cost_check(_quantities, _price, ms.minimum_tradeable);
 
         Dto.MartketplaceItem memory wb = Dto.MartketplaceItem({
             marketplace_item_id: ms.next_listing_id,
