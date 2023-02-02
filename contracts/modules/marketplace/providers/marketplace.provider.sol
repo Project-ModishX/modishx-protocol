@@ -122,17 +122,12 @@ library MarketplaceProvider {
             revert Errors.MAXIMUM_WEARABLE_LENGTH();
         }
 
-        
+        wearable.modishBalanceOfBatchWithCheck(_seller, _wearable_token_ids, _quantities);
 
-        if(
-            wearable.balanceOf(_seller, _wearable_token_id) < _quantity
-        ) 
-        {
-            revert Errors.INSUFFICIENT_WEARABLE();
-        }
         if(!wearable.isApprovedForAll(seller, address(this))) {
             revert Errors.INSUFFICIENT_AUTHORIZATION_OVER_TOKENS();
         }
+
         uint256 total_cost_or_wearables = _quantity * _price;
         if(total_cost_or_wearables < ms.minimum_tradeable) {
             revert Errors.COST_TOO_LOW();
@@ -180,6 +175,25 @@ library MarketplaceProvider {
         internal 
     {
         ms.last_listing_id++;
+    }
+
+    function cost_check(
+        uint256[] _quantities, 
+        uint256 _price, 
+        uint256 mt
+    ) 
+        internal 
+        pure
+        returns {
+            bool checks_out
+        }
+    {
+        for (uint256 i; i < _quantities.length; i++) {
+            uint256 total_cost_or_wearables = _quantity * _price;
+            if(total_cost_or_wearables < mt) {
+                revert Errors.COST_TOO_LOW();
+            }
+        }
     }
 
 

@@ -46,6 +46,33 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 
         return batchBalances;
     }
+
+    function modishBalanceOfBatch(
+        address account,
+        uint256[] memory ids
+    ) public view virtual override returns (uint256[] memory) {
+        uint256[] memory batchBalances = new uint256[](ids.length);
+
+        for (uint256 i = 0; i < ids.length; ++i) {
+            batchBalances[i] = balanceOf(account, ids[i]);
+        }
+
+        return batchBalances;
+    }
+
+    function modishBalanceOfBatchWithCheck(
+        address account,
+        uint256[] memory ids,
+        uint256[] memory q
+    ) public view virtual override returns (bool checked_out) {
+        require(ids.length > 0, "ERC1155: ids length must be greater than zero")
+        checked_out = true;
+
+        for (uint256 i = 0; i < ids.length; ++i) {
+            require(balanceOf(account, ids[i]) > q[i], "Modishx: Insuffiecent wearables");
+        }
+    }
+
     function setApprovalForAll(address operator, bool approved) public virtual override {
         _setApprovalForAll(_msgSender(), operator, approved);
     }
