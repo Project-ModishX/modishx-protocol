@@ -128,7 +128,7 @@ library MarketplaceProvider {
             revert Errors.INSUFFICIENT_AUTHORIZATION_OVER_TOKENS();
         }
 
-        cost_check(_quantities, _price, ms.minimum_tradeable);
+        
 
         Dto.MartketplaceItem memory wb = Dto.MartketplaceItem({
             marketplace_item_id: ms.next_listing_id,
@@ -172,25 +172,6 @@ library MarketplaceProvider {
         internal 
     {
         ms.last_listing_id++;
-    }
-
-    function cost_check(
-        uint256[] _quantities, 
-        uint256 _price, 
-        uint256 mt
-    ) 
-        internal 
-        pure
-        returns {
-            bool checks_out
-        }
-    {
-        for (uint256 i; i < _quantities.length; i++) {
-            uint256 total_cost_or_wearables = _quantity * _price;
-            if(total_cost_or_wearables < mt) {
-                revert Errors.COST_TOO_LOW();
-            }
-        }
     }
 
 
