@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-interface Dna {
+interface CollectionFactoryController {
     function create_collection(
         string memory _uri
     ) 

@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import { CollectionFactoryController } from "../../collection-factory/controllers/collection-factory.controller.sol";
+
 import {Dto, PriceSourceController} from "./dto.sol";
 import {Positions} from "./postions.sol";
 import {Errors} from "./errors.sol";
@@ -11,7 +13,14 @@ import {Wearable} from "../../collection-factory/services/Wearable.sol";
 
 library MarketplaceProvider {
     uint256 constant PRECESION = 10**8;
-    event WearableListed();
+    event WearableListed(
+        address indexed _wearable_token_address,
+        uint256[] _wearable_token_ids,
+        uint256[] _quantities,
+        uint40 _price,
+        uint8 _referrer_percentage,
+        address indexed _seller
+    );
 
 
     function marketplaceStorage() 
@@ -95,11 +104,34 @@ library MarketplaceProvider {
     }
 
     function list_market_items(
-
+        address _wearable_token_address,
+        uint256[] memory _wearable_token_ids,
+        uint256[] memory _quantities,
+        uint40 _price,
+        uint8 _referrer_percentage,
+        address _seller
     )
         internal
     {
+        check_if_listing_fee_is_enough();
 
+        list_internal(
+            _wearable_token_address,
+            _wearable_token_ids,
+            _quantities,
+            _price,
+            _referrer_percentage,
+            _seller
+        );
+
+        WearableListed(
+            _wearable_token_address,
+            _wearable_token_ids,
+            _quantities,
+            _price,
+            _referrer_percentage,
+            _seller
+        );
     }
 
     function list_internal(
@@ -115,7 +147,11 @@ library MarketplaceProvider {
         Dto.MarketplaceSchema storage ms = marketplaceStorage();
         Wearable wearable = Wearable(_wearable_token_address);
 
-        // child check 
+        if (
+            !CollectionFactoryController(address(this)).is_modishx_wearable(msg.sender)
+        ) {
+            revert Errors.NOT_MODISHX_WEARABLE();
+        }
 
         if(_quantities.length != _wearable_token_ids.length) {
             revert Errors.IDS_AND_QUANTITY_NEEDS_TO_BE_THE_SAME_LENGTH();

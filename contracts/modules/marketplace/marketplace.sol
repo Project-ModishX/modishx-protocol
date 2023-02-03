@@ -67,23 +67,6 @@ contract Marketplace {
         provider.set_listing_fee(_listing_fee);
     }
 
-    /// @notice this function is user be a wearable owner to list their weariable on the marketplace
-    /// @dev function should make sure the approval for all is allowed in this address
-    /// @param _wearable_token_address: this is the token address of the wearable nft
-    /// @param _wearable_token_id: this is the token id of the nft to be listed 
-    /// @param _quantity: this is the amount of this token to be listed 
-    /// @param _price: this is the price in wei for the wearable 
-    function list_items(
-        address _wearable_token_address,
-        uint256 _wearable_token_id,
-        uint256 _quantity,
-        uint40 _price
-    ) 
-        external 
-    {
-
-    }
-
     /// @notice this function would be called by a marchant would want's his product to be affiliable 
     /// @dev new parameters supporting this functionality must be passed and checked (SC)
     /// @param _wearable_token_address: this is the token address of the wearable nft
@@ -91,17 +74,24 @@ contract Marketplace {
     /// @param _quantity: this is the amount of this token to be listed 
     /// @param _price: this is the price in wei for the wearable 
     /// @param _referrer_percentage: this is the percentage cut the marchant is willing to give an affiliate
-    function list_items_with_referrer(
+    function list_items(
         address _wearable_token_address,
-        uint256 _wearable_token_id,
-        uint256 _quantity,
+        uint256[] memory _wearable_token_ids,
+        uint256[] memory _quantities,
         uint40 _price,
         uint8 _referrer_percentage,
         address _seller
     )
         external 
     {
-
+        provider.list_market_items(
+            _wearable_token_address,
+            _wearable_token_ids,
+            _quantities,
+            _price,
+            _referrer_percentage,
+            _seller
+        );
     }
 
     /// @dev only the owner of a product should be able to change the wearable price
