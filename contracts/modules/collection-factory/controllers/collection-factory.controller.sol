@@ -11,7 +11,7 @@ interface CollectionFactoryController {
         );
     
     function only_owner()
-        internal
+        external
         view 
         returns(
             bool is_auth
@@ -21,15 +21,15 @@ interface CollectionFactoryController {
         address _child
     ) 
         view 
-        public 
+        external 
         returns(
             bool isMine
         );
 
     function is_modishx_wearable_strict() 
         view 
-        public 
+        external 
         returns(
             bool isMine
-        )
+        );
 }
