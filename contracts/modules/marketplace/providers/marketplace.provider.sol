@@ -124,7 +124,7 @@ library MarketplaceProvider {
             _seller
         );
 
-        WearableListed(
+        emit WearableListed(
             _wearable_token_address,
             _wearable_token_ids,
             _quantities,
@@ -148,7 +148,7 @@ library MarketplaceProvider {
         Wearable wearable = Wearable(_wearable_token_address);
 
         if (
-            !CollectionFactoryController(address(this)).is_modishx_wearable(msg.sender)
+            !CollectionFactoryController(address(this)).is_modishx_wearable(_wearable_token_address)
         ) {
             revert Errors.NOT_MODISHX_WEARABLE();
         }

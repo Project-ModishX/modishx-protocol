@@ -70,8 +70,8 @@ contract Marketplace {
     /// @notice this function would be called by a marchant would want's his product to be affiliable 
     /// @dev new parameters supporting this functionality must be passed and checked (SC)
     /// @param _wearable_token_address: this is the token address of the wearable nft
-    /// @param _wearable_token_id: this is the token id of the nft to be listed 
-    /// @param _quantity: this is the amount of this token to be listed 
+    /// @param _wearable_token_ids: this is the token id of the nft to be listed 
+    /// @param _quantities: this is the amount of this token to be listed 
     /// @param _price: this is the price in wei for the wearable 
     /// @param _referrer_percentage: this is the percentage cut the marchant is willing to give an affiliate
     function list_items(
