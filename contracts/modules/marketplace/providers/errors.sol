@@ -9,4 +9,5 @@ library Errors {
     error IDS_AND_QUANTITY_NEEDS_TO_BE_THE_SAME_LENGTH();
     error MAXIMUM_WEARABLE_LENGTH();
     error NOT_MODISHX_WEARABLE();
+    error ITEM_HAS_NOT_BEEN_LISTED();
 }

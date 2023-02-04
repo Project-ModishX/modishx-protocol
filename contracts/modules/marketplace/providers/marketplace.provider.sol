@@ -188,16 +188,29 @@ library MarketplaceProvider {
         increment__list_id(ms);
         ms.market_items_mapping[wb.marketplace_item_id];
         ms.market_items_array.push(wb);
-
-        
     }
 
     function update_listing_price(
-
+        uint256 _listing_id,
+        uint256 _new_price,
+        uint8 _referrer_percentage
     )
         internal
     {
+        // get the marketplace wearable 
+        Dto.MarketplaceSchema storage ms = marketplaceStorage();
+        Dto.MartketplaceItem wearable = ms.market_items_mapping[_listing_id];
 
+        // check if the item has been listed 
+        if(wearable.marketplace_item_id > ms.next_listing_id) {
+            revert Errors.
+        }
+
+        // check if items has been sold 
+
+        // check if items has been listed 
+
+        if()
     }
 
     function cancel_market_listing(
