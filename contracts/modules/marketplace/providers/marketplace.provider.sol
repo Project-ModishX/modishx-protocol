@@ -13,6 +13,7 @@ import {Wearable} from "../../collection-factory/services/Wearable.sol";
 
 library MarketplaceProvider {
     uint256 constant PRECESION = 10**8;
+
     event WearableListed(
         address indexed _wearable_token_address,
         uint256[] _wearable_token_ids,
@@ -20,6 +21,10 @@ library MarketplaceProvider {
         uint40 _price,
         uint8 _referrer_percentage,
         address indexed _seller
+    );
+
+    event WearableCancelled(
+        uint256 _wearable_id
     );
 
 
@@ -190,35 +195,34 @@ library MarketplaceProvider {
         ms.market_items_array.push(wb);
     }
 
-    function update_listing_price(
-        uint256 _listing_id,
-        uint256 _new_price,
-        uint8 _referrer_percentage
-    )
-        internal
-    {
-        // get the marketplace wearable 
-        Dto.MarketplaceSchema storage ms = marketplaceStorage();
-        Dto.MartketplaceItem wearable = ms.market_items_mapping[_listing_id];
-
-        // check if the item has been listed 
-        if(wearable.marketplace_item_id > ms.next_listing_id) {
-            revert Errors.
-        }
-
-        // check if items has been sold 
-
-        // check if items has been listed 
-
-        if()
-    }
-
     function cancel_market_listing(
-
+        uint256 _wearable_id
     ) 
         internal 
     {
+                // get the marketplace wearable 
+        Dto.MarketplaceSchema storage ms = marketplaceStorage();
+        Dto.MartketplaceItem storage wearable = ms.market_items_mapping[_listing_id];
 
+        // check if the item has been listed 
+        if(wearable.marketplace_item_id >= ms.next_listing_id) {
+            revert Errors.ITEM_HAS_NOT_BEEN_LISTED();
+        }
+
+        // check if items has been sold 
+        if(wearable.is_sold) {
+            revert Errors.ITEM_HAS_BEEN_SOLD();
+        }
+
+        // cheack if wearable is cancelled 
+        if(wearable.is_cancelled) {
+            revert Errors.WEARABLE_HAS_ALREADY_BEEN_CANCELLED();
+        }
+
+        // updating the wearable cancelled data stat
+        wearable.is_cancelled = true;
+
+        emit WearableCancelled(_wearable_id);
     }
 
     function buy_wearable(
