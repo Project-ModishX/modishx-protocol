@@ -202,7 +202,7 @@ library MarketplaceProvider {
     {
                 // get the marketplace wearable 
         Dto.MarketplaceSchema storage ms = marketplaceStorage();
-        Dto.MartketplaceItem storage wearable = ms.market_items_mapping[_listing_id];
+        Dto.MartketplaceItem storage wearable = ms.market_items_mapping[_wearable_id];
 
         // check if the item has been listed 
         if(wearable.marketplace_item_id >= ms.next_listing_id) {
