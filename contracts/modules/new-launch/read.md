@@ -1,0 +1,1 @@
+In thus module, functionalities that would allow the marchant in modishx to list new listing into the marketplace would be implemented 

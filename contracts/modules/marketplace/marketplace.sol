@@ -94,16 +94,6 @@ contract Marketplace {
         );
     }
 
-    /// @dev only the owner of a product should be able to change the wearable price
-    function update_listing_price(
-        uint256 _listing_id,
-        uint256 _new_price,
-        uint8 _referrer_percentage
-    ) 
-        external 
-    {
-
-    }
 
     /// @notice this function would be used be the seller to tell the market they are no - longer selling
     function cancel_listing() 
