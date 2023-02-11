@@ -200,7 +200,7 @@ library MarketplaceProvider {
     ) 
         internal 
     {
-                // get the marketplace wearable 
+        // get the marketplace wearable 
         Dto.MarketplaceSchema storage ms = marketplaceStorage();
         Dto.MartketplaceItem storage wearable = ms.market_items_mapping[_wearable_id];
 
@@ -213,6 +213,8 @@ library MarketplaceProvider {
         if(wearable.is_sold) {
             revert Errors.ITEM_HAS_BEEN_SOLD();
         }
+
+        // 
 
         // cheack if wearable is cancelled 
         if(wearable.is_cancelled) {

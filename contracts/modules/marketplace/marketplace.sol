@@ -96,10 +96,13 @@ contract Marketplace {
 
 
     /// @notice this function would be used be the seller to tell the market they are no - longer selling
-    function cancel_listing() 
+    /// @dev only the stored seller can preform this action 
+    function cancel_listing(
+        uint256 _wearable_id
+    ) 
         external 
     {
-        
+        provider.cancel_market_listing(_wearable_id);
     }
 
     /// @notice this function would allow user purchase wearable that has just be created
