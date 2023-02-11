@@ -101,4 +101,20 @@ contract Marketplace {
     {
         
     }
+
+    /// @notice this function would allow user purchase wearable that has just be created
+    /// @dev this would be calling the mint function in the wearable contract 
+    function purchase_from_new_listings() 
+        external
+    {
+
+    }
+
+    /// @notice this function would be used top change the price of the new batch of wearable which was set during deployment
+    /// @dev the address of the wearable is need to be passed for the operation t be carried out 
+    function marchant_change_new_listing_price()
+        external 
+    {
+
+    }
 }
