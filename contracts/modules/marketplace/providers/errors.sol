@@ -12,4 +12,5 @@ library Errors {
     error ITEM_HAS_NOT_BEEN_LISTED();
     error ITEM_HAS_BEEN_SOLD();
     error WEARABLE_HAS_ALREADY_BEEN_CANCELLED();
+    error YOU_ARE_NOT_SELLER();
 }

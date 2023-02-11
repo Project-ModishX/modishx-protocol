@@ -214,7 +214,10 @@ library MarketplaceProvider {
             revert Errors.ITEM_HAS_BEEN_SOLD();
         }
 
-        // 
+        // msg.sender has to be the seller 
+        if(wearable.seller != msg.sender) {
+            revert Errors.YOU_ARE_NOT_SELLER();
+        }
 
         // cheack if wearable is cancelled 
         if(wearable.is_cancelled) {

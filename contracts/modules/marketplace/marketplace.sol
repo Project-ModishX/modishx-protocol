@@ -97,10 +97,11 @@ contract Marketplace {
 
     /// @notice this function would be used be the seller to tell the market they are no - longer selling
     /// @dev only the stored seller can preform this action 
+    /// @param _wearable_id: this is the id of the wearable which is to be cancelled
     function cancel_listing(
         uint256 _wearable_id
     ) 
-        external 
+        external
     {
         provider.cancel_market_listing(_wearable_id);
     }
