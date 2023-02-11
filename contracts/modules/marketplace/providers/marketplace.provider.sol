@@ -231,10 +231,33 @@ library MarketplaceProvider {
     }
 
     function buy_wearable(
-
+        uint256 _wearable_id
     )
         internal 
     {
+        // get the marketplace wearable 
+        Dto.MarketplaceSchema storage ms = marketplaceStorage();
+        Dto.MartketplaceItem storage wearable = ms.market_items_mapping[_wearable_id];
+
+        // check if the item has been listed 
+        if(wearable.marketplace_item_id >= ms.next_listing_id) {
+            revert Errors.ITEM_HAS_NOT_BEEN_LISTED();
+        }
+
+        // check if items has been sold 
+        if(wearable.is_sold) {
+            revert Errors.ITEM_HAS_BEEN_SOLD();
+        }
+
+        // cheack if wearable is cancelled 
+        if(wearable.is_cancelled) {
+            revert Errors.WEARABLE_HAS_ALREADY_BEEN_CANCELLED();
+        }
+
+        // check if the user came with enogh cash 
+
+        // check if wearable has been redeemed 
+
 
     }
 
