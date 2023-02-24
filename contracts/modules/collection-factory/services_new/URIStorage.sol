@@ -10,8 +10,19 @@ import {Strings} from "./Strings.service.sol";
 
 
 
-abstract contract ERC721URIStorage is IERC4906, ERC721 {
+contract ERC721URIStorage is IERC4906, ERC721 {
     using Strings for uint256;
+
+
+    constructor(
+        string memory name_, 
+        string memory symbol_
+    ) 
+        ERC721(
+            name_,
+            symbol_
+        ) 
+    {}
 
     // Optional mapping for token URIs
     mapping(uint256 => string) private _tokenURIs;

@@ -2,11 +2,11 @@
 pragma solidity ^0.8.0;
 
 import {AccessControlController, Dto} from "../../access-control/controllers/access-control.controller.sol";
-import {ERC1155} from "./ERC1155.service.sol";
-import {Strings} from "./Strings.sol";
+import {ERC721URIStorage} from "./URIStorage.sol";
+
 
 /// @notice this is a NFT contract ERC1155 token type 
-contract Wearable is ERC721 {
+contract Wearable is ERC721URIStorage {
     // ============================================================================================================
     // -------------------------------------------- State Variables -------------------------------------------------------
     // ============================================================================================================
@@ -20,7 +20,16 @@ contract Wearable is ERC721 {
     // ==============================================================
     // CONSTRUCTION
     // ==============================================================
+    constructor(
+        string memory wearable_name, string memory wearable_symbol
+    ) 
+        ERC721URIStorage(
+            wearable_name,
+            wearable_symbol
+        ) 
+    {
 
+    }
 
 
     // =======================================================
